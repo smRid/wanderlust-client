@@ -14,3 +14,30 @@ export const getAllDestinations = async () => {
     return [];
   }
 };
+
+export const getFeaturedDestinations = async () => {
+  const allDestinations = await getAllDestinations();
+
+  const featuredDestinations = allDestinations.filter(
+    (d) => d.featured === true,
+  );
+
+  return featuredDestinations;
+};
+
+export const getDestinationById = async (id) => {
+  try {
+    const res = await fetch(`http://localhost:5000/destinations/${id}`, {
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch destinations by ID");
+    }
+
+    return res.json();
+  } catch (error) {
+    console.error("Error fetching destinations by ID:", error);
+    return [];
+  }
+};
