@@ -9,13 +9,14 @@ const CarouselContainer = ({ featuredDestinations }) => {
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [visibleSlides, setVisibleSlides] = useState(1);
   const autoPlayRef = useRef(null);
+  const totalSlides = featuredDestinations.length;
+  const maxIndex = Math.max(totalSlides - visibleSlides, 0);
 
   // Auto-play functionality
   useEffect(() => {
-    if (isAutoPlaying) {
+    if (isAutoPlaying && totalSlides > visibleSlides) {
       autoPlayRef.current = setInterval(() => {
         setCurrentIndex((prev) => {
-          const maxIndex = featuredDestinations.length - visibleSlides;
           if (prev >= maxIndex) return 0; // Loop back to start
           return prev + 1;
         });
@@ -27,26 +28,21 @@ const CarouselContainer = ({ featuredDestinations }) => {
         clearInterval(autoPlayRef.current);
       }
     };
-  }, [isAutoPlaying, featuredDestinations.length, visibleSlides]);
+  }, [isAutoPlaying, maxIndex, totalSlides, visibleSlides]);
 
   const goToSlide = (index) => {
-    const maxIndex = featuredDestinations.length - visibleSlides;
-    const validIndex = Math.min(index, maxIndex);
+    const validIndex = Math.min(Math.max(index, 0), maxIndex);
     setCurrentIndex(validIndex);
     setIsAutoPlaying(false);
     setTimeout(() => setIsAutoPlaying(true), 10000); // Resume auto-play after 10s
   };
 
   const goToPrevious = () => {
-    const newIndex =
-      currentIndex === 0
-        ? featuredDestinations.length - visibleSlides
-        : currentIndex - 1;
+    const newIndex = currentIndex === 0 ? maxIndex : currentIndex - 1;
     goToSlide(newIndex);
   };
 
   const goToNext = () => {
-    const maxIndex = featuredDestinations.length - visibleSlides;
     const newIndex = currentIndex >= maxIndex ? 0 : currentIndex + 1;
     goToSlide(newIndex);
   };
@@ -72,21 +68,25 @@ const CarouselContainer = ({ featuredDestinations }) => {
   return (
     <div className="relative">
       {/* Navigation Buttons */}
-      <button
-        onClick={goToPrevious}
-        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-12 h-12 bg-surface/95 backdrop-blur-md rounded-full shadow-xl  items-center justify-center text-primary hover:bg-accent hover:text-surface transition-all hover:scale-110 hidden sm:flex"
-        aria-label="Previous slide"
-      >
-        <ChevronLeft className="w-6 h-6" />
-      </button>
+      {totalSlides > visibleSlides && (
+        <>
+          <button
+            onClick={goToPrevious}
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-12 h-12 bg-surface/95 backdrop-blur-md rounded-full shadow-xl items-center justify-center text-primary hover:bg-accent hover:text-primary transition-all hover:scale-110 hidden sm:flex"
+            aria-label="Previous slide"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
 
-      <button
-        onClick={goToNext}
-        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-12 h-12 bg-surface/95 backdrop-blur-md rounded-full shadow-xl  items-center justify-center text-primary hover:bg-accent hover:text-surface transition-all hover:scale-110 hidden sm:flex"
-        aria-label="Next slide"
-      >
-        <ChevronRight className="w-6 h-6" />
-      </button>
+          <button
+            onClick={goToNext}
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-12 h-12 bg-surface/95 backdrop-blur-md rounded-full shadow-xl items-center justify-center text-primary hover:bg-accent hover:text-primary transition-all hover:scale-110 hidden sm:flex"
+            aria-label="Next slide"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
+        </>
+      )}
 
       {/* Carousel Track */}
       <div className="overflow-visible py-8">
@@ -111,7 +111,7 @@ const CarouselContainer = ({ featuredDestinations }) => {
       {/* Dots Navigation */}
       <div className="flex items-center justify-center gap-2 mt-8 sm:mt-10">
         {Array.from({
-          length: featuredDestinations.length - visibleSlides + 1,
+          length: maxIndex + 1,
         }).map((_, index) => (
           <button
             key={index}
