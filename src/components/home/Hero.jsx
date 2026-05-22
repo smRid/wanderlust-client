@@ -58,7 +58,7 @@ const Hero = () => {
                 <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
-                href="/tours"
+                href="/destinations"
                 className="px-5 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 bg-surface/10 backdrop-blur-sm text-surface font-semibold font-body rounded-xl border border-surface/30 hover:bg-surface/20 active:scale-95 transition-all focus-visible:ring-2 focus-visible:ring-surface focus-visible:ring-offset-2 text-xs sm:text-sm md:text-base"
               >
                 View Tours
