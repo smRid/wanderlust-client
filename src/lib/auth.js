@@ -6,10 +6,10 @@ import { MongoClient } from "mongodb";
 import { jwt } from "better-auth/plugins";
 
 const globalForMongo = globalThis;
-const mongoUri = process.env.MONGODB_URI;
+const mongoUri = process.env.MONGODB_URI || process.env.MONGO_DB_URI;
 
 if (!mongoUri) {
-  throw new Error("MONGODB_URI is required for Better Auth.");
+  throw new Error("MONGODB_URI or MONGO_DB_URI is required for Better Auth.");
 }
 
 const mongoClient =
@@ -22,7 +22,7 @@ if (process.env.NODE_ENV !== "production") {
 const db = mongoClient.db(process.env.MONGODB_DB || "wanderlast");
 
 const trustedOrigins = [
-  process.env.BETTER_AUTH_URL,
+  process.env.BETTER_AUTH_URL || process.env.NEXT_PUBLIC_BETTER_AUTH_URL,
   process.env.NEXT_PUBLIC_APP_URL,
   "http://localhost:3000",
   "http://localhost:3001",
@@ -33,7 +33,7 @@ export const auth = betterAuth({
     client: mongoClient,
   }),
   secret: process.env.BETTER_AUTH_SECRET,
-  baseURL: process.env.BETTER_AUTH_URL,
+  baseURL: process.env.BETTER_AUTH_URL || process.env.NEXT_PUBLIC_BETTER_AUTH_URL,
   trustedOrigins,
   session: {
     cookieCache: {
