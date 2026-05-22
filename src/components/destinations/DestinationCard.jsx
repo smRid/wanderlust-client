@@ -4,7 +4,8 @@ import { MapPin, Star, Clock, TrendingUp, ArrowRight } from "lucide-react";
 import { getDestinationImage } from "@/lib/local-images";
 
 const DestinationCard = ({ destination }) => {
-  const image = getDestinationImage(destination);
+  const image = destination.imageUrl || getDestinationImage(destination);
+  const isRemoteImage = typeof image === "string" && /^https?:\/\//.test(image);
 
   return (
     <Link
@@ -18,6 +19,7 @@ const DestinationCard = ({ destination }) => {
           alt={`${destination.destinationName}, ${destination.country}`}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
+          unoptimized={isRemoteImage}
           className="object-cover group-hover:scale-110 transition-transform duration-700"
         />
         {/* Gradient Overlay */}

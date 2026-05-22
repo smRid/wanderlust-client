@@ -4,7 +4,9 @@ import Link from "next/link";
 import { getDestinationImage } from "@/lib/local-images";
 
 const FeaturedDestinationsCard = ({ destination, visibleSlides }) => {
-  const image = destination.image ?? getDestinationImage(destination);
+  const image =
+    destination.imageUrl || destination.image || getDestinationImage(destination);
+  const isRemoteImage = typeof image === "string" && /^https?:\/\//.test(image);
   const price = destination.discountPrice ?? destination.price;
 
   return (
@@ -22,6 +24,7 @@ const FeaturedDestinationsCard = ({ destination, visibleSlides }) => {
             alt={`${destination.destinationName}, ${destination.country}`}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
+            unoptimized={isRemoteImage}
             className="object-cover group-hover:scale-110 transition-transform duration-700"
           />
 

@@ -1,7 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { User, Phone, Globe, FileText, Loader2, Check } from "lucide-react";
+import {
+  User,
+  Phone,
+  Globe,
+  FileText,
+  Loader2,
+  Check,
+  ImageIcon,
+} from "lucide-react";
 import { useToast } from "@/components/ui/ToastContainer";
 import { authClient } from "@/lib/auth-client";
 
@@ -27,6 +35,7 @@ const EditProfileForm = ({ user }) => {
 
   const [form, setForm] = useState({
     name: user?.name ?? "",
+    image: user?.image ?? "",
     phone: user?.phone ?? "",
     nationality: user?.nationality ?? "",
     bio: user?.bio ?? "",
@@ -43,6 +52,7 @@ const EditProfileForm = ({ user }) => {
 
     const { error } = await authClient.updateUser({
       name: form.name,
+      image: form.image,
       phone: form.phone,
       nationality: form.nationality,
       bio: form.bio,
@@ -76,6 +86,19 @@ const EditProfileForm = ({ user }) => {
             value={form.name}
             onChange={handleChange}
             placeholder="Your full name"
+            disabled={isLoading}
+            className={inputClass}
+          />
+        </Field>
+
+        {/* Profile Image */}
+        <Field label="Profile Image URL" icon={ImageIcon}>
+          <input
+            type="url"
+            name="image"
+            value={form.image}
+            onChange={handleChange}
+            placeholder="https://example.com/profile.jpg"
             disabled={isLoading}
             className={inputClass}
           />

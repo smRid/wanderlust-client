@@ -3,6 +3,8 @@ import { getProfileImage } from "@/lib/local-images";
 
 const UserAvatar = ({ user, size = "md" }) => {
   const sizeClass = size === "sm" ? "w-8 h-8 text-xs" : "w-9 h-9 text-sm";
+  const image = user?.image || getProfileImage(user);
+  const isRemoteImage = typeof image === "string" && /^https?:\/\//.test(image);
 
   const initials = user?.name
     ? user.name
@@ -19,10 +21,11 @@ const UserAvatar = ({ user, size = "md" }) => {
         className={`${sizeClass} relative rounded-full overflow-hidden shrink-0 ring-2 ring-accent/30`}
       >
         <Image
-          src={getProfileImage(user)}
+          src={image}
           alt={user.name ?? "User"}
           fill
           sizes="40px"
+          unoptimized={isRemoteImage}
           className="object-cover"
         />
       </div>

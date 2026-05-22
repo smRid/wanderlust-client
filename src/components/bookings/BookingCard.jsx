@@ -21,7 +21,8 @@ const BookingCard = ({ booking, onCancelled }) => {
   const toast = useToast();
   const [isCancelling, setIsCancelling] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const image = getDestinationImage(booking);
+  const image = booking.destinationImage || getDestinationImage(booking);
+  const isRemoteImage = typeof image === "string" && /^https?:\/\//.test(image);
 
   const formattedDate = booking.departureDate
     ? new Date(booking.departureDate).toLocaleDateString("en-US", {
@@ -64,6 +65,7 @@ const BookingCard = ({ booking, onCancelled }) => {
             alt={booking.destinationName}
             fill
             sizes="(max-width: 640px) 100vw, 176px"
+            unoptimized={isRemoteImage}
             className="object-cover group-hover:scale-105 transition-transform duration-500"
           />
           {/* Gradient overlay on mobile */}

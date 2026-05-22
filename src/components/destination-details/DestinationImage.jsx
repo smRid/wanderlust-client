@@ -12,7 +12,8 @@ const DestinationImage = ({
   hasDiscount,
   discountPercent,
 }) => {
-  const image = getDestinationImage({ destinationName, imageUrl });
+  const image = imageUrl || getDestinationImage({ destinationName, imageUrl });
+  const isRemoteImage = typeof image === "string" && /^https?:\/\//.test(image);
 
   return (
     <div className="relative">
@@ -24,6 +25,7 @@ const DestinationImage = ({
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
             priority
+            unoptimized={isRemoteImage}
             className="object-cover"
           />
 
