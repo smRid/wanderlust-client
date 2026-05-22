@@ -37,6 +37,7 @@ export const auth = betterAuth({
   }),
   secret: process.env.BETTER_AUTH_SECRET,
   baseURL,
+  basePath: "/api/auth",
   trustedOrigins,
   session: {
     cookieCache: {
