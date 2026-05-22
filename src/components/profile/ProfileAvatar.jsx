@@ -19,15 +19,23 @@ const ProfileAvatar = ({ user }) => {
     <div className="relative w-24 h-24 sm:w-28 sm:h-28 shrink-0 group">
       <div className="relative w-full h-full rounded-2xl ring-4 ring-surface overflow-hidden shadow-xl">
         {displayImage ? (
-          <Image
-            src={displayImage}
-            alt={user?.name ?? "Profile"}
-            fill
-            sizes="(max-width: 640px) 96px, 112px"
-            quality={100}
-            unoptimized={isRemoteImage}
-            className="object-cover"
-          />
+          isRemoteImage ? (
+            <img
+              src={displayImage}
+              alt={user?.name ?? "Profile"}
+              className="h-full w-full object-cover"
+              referrerPolicy="no-referrer"
+            />
+          ) : (
+            <Image
+              src={displayImage}
+              alt={user?.name ?? "Profile"}
+              fill
+              sizes="(max-width: 640px) 96px, 112px"
+              quality={100}
+              className="object-cover"
+            />
+          )
         ) : (
           <div className="w-full h-full bg-linear-to-br from-accent to-secondary flex items-center justify-center">
             <span className="text-3xl sm:text-4xl font-bold font-heading text-surface">

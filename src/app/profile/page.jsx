@@ -18,6 +18,10 @@ const ProfilePage = async () => {
     headers: await headers(),
   });
 
+  if (!session?.user) {
+    redirect("/signin?redirect=/profile");
+  }
+
   // Proxy ensures user is authenticated, but we still need session data
   const user = session.user;
 

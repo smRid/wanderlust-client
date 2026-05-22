@@ -20,14 +20,22 @@ const UserAvatar = ({ user, size = "md" }) => {
       <div
         className={`${sizeClass} relative rounded-full overflow-hidden shrink-0 ring-2 ring-accent/30`}
       >
-        <Image
-          src={image}
-          alt={user.name ?? "User"}
-          fill
-          sizes="40px"
-          unoptimized={isRemoteImage}
-          className="object-cover"
-        />
+        {isRemoteImage ? (
+          <img
+            src={image}
+            alt={user.name ?? "User"}
+            className="h-full w-full object-cover"
+            referrerPolicy="no-referrer"
+          />
+        ) : (
+          <Image
+            src={image}
+            alt={user.name ?? "User"}
+            fill
+            sizes="40px"
+            className="object-cover"
+          />
+        )}
       </div>
     );
   }
