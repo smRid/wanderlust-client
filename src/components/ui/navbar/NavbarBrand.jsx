@@ -1,20 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
-import { localImages } from "@/lib/local-images";
 
 const NavbarBrand = ({ colorClass }) => {
   return (
-    <Link href="/" className="flex items-center gap-1 group">
-      <div className="relative w-10 h-10 md:w-12 md:h-12">
-        <Image
-          src={localImages.logo}
-          alt="Wanderlast Logo"
-          fill
-          sizes="48px"
-          className="object-contain transition-transform group-hover:scale-105"
-          priority
-        />
-      </div>
+    <Link href="/" className="inline-flex items-center group">
       <span
         className={`text-xl md:text-2xl font-bold font-heading transition-colors ${colorClass}`}
       >
