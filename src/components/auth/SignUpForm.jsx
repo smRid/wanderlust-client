@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import { useToast } from "@/components/ui/ToastContainer";
-import { Eye, EyeOff, Mail, Lock, User, Loader2 } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, User, Loader2, ImageIcon } from "lucide-react";
 import Link from "next/link";
 
 const SignUpForm = () => {
@@ -28,6 +28,7 @@ const SignUpForm = () => {
 
     const name = formData.get("name");
     const email = formData.get("email");
+    const image = formData.get("image")?.trim();
     const password = formData.get("password");
     const confirmPassword = formData.get("confirmPassword");
 
@@ -48,6 +49,7 @@ const SignUpForm = () => {
     const { data, error } = await authClient.signUp.email({
       name,
       email,
+      image: image || undefined,
       password,
     });
 
@@ -91,6 +93,26 @@ const SignUpForm = () => {
             className="w-full pl-10 pr-4 py-3 rounded-xl border border-border bg-surface text-text font-body focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all disabled:opacity-60 disabled:cursor-not-allowed"
           />
         </div>
+      </div>
+
+      {/* Profile Image URL Input */}
+      <div>
+        <label className="block text-sm font-semibold text-text font-body mb-2">
+          Profile Image URL
+        </label>
+        <div className="relative">
+          <ImageIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted pointer-events-none" />
+          <input
+            type="url"
+            name="image"
+            placeholder="https://example.com/your-photo.jpg"
+            disabled={isLoading}
+            className="w-full pl-10 pr-4 py-3 rounded-xl border border-border bg-surface text-text font-body focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+          />
+        </div>
+        <p className="mt-1.5 text-xs text-text-muted font-body">
+          Paste a direct image link. You can update this later from your profile.
+        </p>
       </div>
 
       {/* Email Input */}
