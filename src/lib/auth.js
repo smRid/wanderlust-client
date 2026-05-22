@@ -1,58 +1,69 @@
 import { betterAuth } from "better-auth";
-import { MongoClient } from "mongodb";
+import { dash } from "@better-auth/infra";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
+import { nextCookies } from "better-auth/next-js";
+import { MongoClient } from "mongodb";
 import { jwt } from "better-auth/plugins";
 
-const client = new MongoClient(process.env.MONGO_DB_URI);
-const db = client.db("wanderlast");
+const globalForMongo = globalThis;
+const mongoUri = process.env.MONGODB_URI;
+
+if (!mongoUri) {
+  throw new Error("MONGODB_URI is required for Better Auth.");
+}
+
+const mongoClient =
+  globalForMongo.__wanderlastMongoClient || new MongoClient(mongoUri);
+
+if (process.env.NODE_ENV !== "production") {
+  globalForMongo.__wanderlastMongoClient = mongoClient;
+}
+
+const db = mongoClient.db(process.env.MONGODB_DB || "wanderlast");
+
+const trustedOrigins = [
+  process.env.BETTER_AUTH_URL,
+  process.env.NEXT_PUBLIC_APP_URL,
+  "http://localhost:3000",
+  "http://localhost:3001",
+].filter(Boolean);
 
 export const auth = betterAuth({
+  database: mongodbAdapter(db, {
+    client: mongoClient,
+  }),
+  secret: process.env.BETTER_AUTH_SECRET,
+  baseURL: process.env.BETTER_AUTH_URL,
+  trustedOrigins,
   session: {
     cookieCache: {
       enabled: true,
       strategy: "jwt",
-      maxAge: 7 * 24 * 60 * 60, // 7 days in seconds
+      maxAge: 7 * 24 * 60 * 60,
     },
   },
-  plugins: [jwt()],
   emailAndPassword: {
     enabled: true,
+  },
+  account: {
+    updateAccountOnSignIn: true,
+    accountLinking: {
+      enabled: true,
+      trustedProviders: ["google", "email-password"],
+    },
   },
   socialProviders: {
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      overrideUserInfoOnSignIn: true,
     },
   },
-  user: {
-    additionalFields: {
-      role: {
-        type: "string",
-        required: false,
-        defaultValue: "user",
-        input: false, // Don't allow users to set their own role
-      },
-      phone: {
-        type: "string",
-        required: false,
-        defaultValue: "",
-        input: true,
-      },
-      nationality: {
-        type: "string",
-        required: false,
-        defaultValue: "",
-        input: true,
-      },
-      bio: {
-        type: "string",
-        required: false,
-        defaultValue: "",
-        input: true,
-      },
-    },
-  },
-  database: mongodbAdapter(db, {
-    client,
-  }),
+  plugins: [
+    dash({
+      apiKey: process.env.BETTER_AUTH_API_KEY,
+    }),
+    jwt(),
+    nextCookies(),
+  ],
 });
