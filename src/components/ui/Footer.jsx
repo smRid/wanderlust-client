@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Mail, Phone } from "lucide-react";
 import {
@@ -10,7 +9,6 @@ import {
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import NewsletterForm from "./footer/NewsletterForm";
-import { localImages } from "@/lib/local-images";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -91,16 +89,7 @@ const Footer = async () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8">
           {/* Brand column — spans 2 cols on lg */}
           <div className="sm:col-span-2 lg:col-span-2 space-y-6">
-            <Link href="/" className="inline-flex items-center gap-2 group">
-              <div className="relative w-10 h-10">
-                <Image
-                  src={localImages.logo}
-                  alt="Wanderlast"
-                  fill
-                  sizes="40px"
-                  className="object-contain group-hover:scale-105 transition-transform"
-                />
-              </div>
+            <Link href="/" className="inline-flex items-center group">
               <span className="text-xl font-bold font-heading text-accent">
                 Wanderlast
               </span>

@@ -21,11 +21,7 @@ const SignInPage = () => {
           {/* Sign In Card */}
           <div className="bg-surface rounded-3xl shadow-xl border border-border p-8">
             {/* Google Sign In Button */}
-            <Suspense
-              fallback={
-                <div className="w-full h-12 bg-surface animate-pulse rounded-xl" />
-              }
-            >
+            <Suspense fallback={null}>
               <GoogleAuth label="Sign in with Google" />
             </Suspense>
 
@@ -42,15 +38,7 @@ const SignInPage = () => {
             </div>
 
             {/* Sign In Form */}
-            <Suspense
-              fallback={
-                <div className="space-y-5 animate-pulse">
-                  <div className="h-20 bg-surface rounded-xl" />
-                  <div className="h-20 bg-surface rounded-xl" />
-                  <div className="h-14 bg-surface rounded-xl" />
-                </div>
-              }
-            >
+            <Suspense fallback={null}>
               <SignInForm />
             </Suspense>
 

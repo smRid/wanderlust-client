@@ -21,11 +21,7 @@ const SignUpPage = () => {
           {/* Sign Up Card */}
           <div className="bg-surface rounded-3xl shadow-xl border border-border p-8">
             {/* Google Sign Up Button */}
-            <Suspense
-              fallback={
-                <div className="w-full h-12 bg-surface animate-pulse rounded-xl" />
-              }
-            >
+            <Suspense fallback={null}>
               <GoogleAuth />
             </Suspense>
 

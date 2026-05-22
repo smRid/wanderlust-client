@@ -14,12 +14,7 @@ const NavbarAuth = ({
   getTextColor,
 }) => {
   if (isPending) {
-    return (
-      <div className="flex items-center gap-3">
-        <div className="w-9 h-9 rounded-full bg-border animate-pulse" />
-        <div className="w-20 h-4 rounded bg-border animate-pulse" />
-      </div>
-    );
+    return <div className="h-10 w-44" aria-hidden="true" />;
   }
 
   if (user) {
