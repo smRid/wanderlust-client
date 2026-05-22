@@ -1,8 +1,11 @@
 import { ArrowRight, MapPin, Star, Sparkles } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { getDestinationImage } from "@/lib/local-images";
 
 const FeaturedDestinationsCard = ({ destination, visibleSlides }) => {
+  const image = getDestinationImage(destination);
+
   return (
     <div
       className="shrink-0 px-3 sm:px-4 relative z-0 group/card"
@@ -15,7 +18,7 @@ const FeaturedDestinationsCard = ({ destination, visibleSlides }) => {
         {/* Image Container with Overlay Effects */}
         <div className="relative aspect-3/4 overflow-hidden">
           <Image
-            src={destination.imageUrl}
+            src={image}
             alt={`${destination.destinationName}, ${destination.country}`}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"

@@ -10,6 +10,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+import { localImages } from "@/lib/local-images";
 
 const FeaturedDestinations = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -22,7 +23,7 @@ const FeaturedDestinations = () => {
       id: 1,
       name: "Santorini",
       country: "Greece",
-      image: "/assets/destinations/image1.png",
+      image: localImages.destinations[0],
       rating: 4.9,
       tours: 12,
       price: "From $899",
@@ -32,7 +33,7 @@ const FeaturedDestinations = () => {
       id: 2,
       name: "Bali",
       country: "Indonesia",
-      image: "/assets/destinations/image2.png",
+      image: localImages.destinations[1],
       rating: 4.8,
       tours: 18,
       price: "From $699",
@@ -42,7 +43,7 @@ const FeaturedDestinations = () => {
       id: 3,
       name: "Paris",
       country: "France",
-      image: "/assets/destinations/image3.png",
+      image: localImages.destinations[2],
       rating: 4.9,
       tours: 24,
       price: "From $1,299",
@@ -52,7 +53,7 @@ const FeaturedDestinations = () => {
       id: 4,
       name: "Tokyo",
       country: "Japan",
-      image: "/assets/destinations/image4.png",
+      image: localImages.destinations[3],
       rating: 4.7,
       tours: 15,
       price: "From $1,099",
@@ -62,7 +63,7 @@ const FeaturedDestinations = () => {
       id: 5,
       name: "Maldives",
       country: "Indian Ocean",
-      image: "/assets/destinations/image5.png",
+      image: localImages.destinations[4],
       rating: 5.0,
       tours: 10,
       price: "From $1,499",
@@ -72,7 +73,7 @@ const FeaturedDestinations = () => {
       id: 6,
       name: "Dubai",
       country: "UAE",
-      image: "/assets/destinations/image6.png",
+      image: localImages.destinations[5],
       rating: 4.8,
       tours: 20,
       price: "From $999",

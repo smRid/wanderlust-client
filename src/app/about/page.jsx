@@ -14,6 +14,7 @@ import {
   Zap,
   Star,
 } from "lucide-react";
+import { localImages } from "@/lib/local-images";
 
 export const metadata = {
   title: "About Us — WanderLast",
@@ -61,13 +62,13 @@ const TEAM = [
   {
     name: "Sarah Johnson",
     role: "Founder & CEO",
-    image: "/assets/person1.png",
+    image: localImages.person1,
     bio: "Former travel journalist with 15+ years exploring 60+ countries.",
   },
   {
     name: "Michael Chen",
     role: "Head of Operations",
-    image: "/assets/person2.png",
+    image: localImages.person2,
     bio: "Adventure enthusiast ensuring seamless travel experiences globally.",
   },
 ];
@@ -179,7 +180,7 @@ const StorySection = () => (
         <div className="relative">
           <div className="relative aspect-4/3 rounded-3xl overflow-hidden shadow-2xl">
             <Image
-              src="/assets/hero-banner.png"
+              src={localImages.heroBanner}
               alt="Travel adventure"
               fill
               className="object-cover"
@@ -232,7 +233,7 @@ const StorySection = () => (
               </div>
               <div className="w-12 h-12 rounded-full border-2 border-surface overflow-hidden">
                 <Image
-                  src="/assets/person1.png"
+                  src={localImages.person1}
                   alt="Traveler"
                   width={48}
                   height={48}
@@ -241,7 +242,7 @@ const StorySection = () => (
               </div>
               <div className="w-12 h-12 rounded-full border-2 border-surface overflow-hidden">
                 <Image
-                  src="/assets/person2.png"
+                  src={localImages.person2}
                   alt="Traveler"
                   width={48}
                   height={48}

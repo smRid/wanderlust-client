@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, MapPin } from "lucide-react";
+import { localImages } from "@/lib/local-images";
 
 const CTASection = () => {
   return (
@@ -8,7 +9,7 @@ const CTASection = () => {
       {/* Background image */}
       <div className="absolute inset-0">
         <Image
-          src="/assets/cta-banner.png"
+          src={localImages.ctaBanner}
           alt="Aerial view of a tropical island with crystal clear water"
           fill
           sizes="100vw"

@@ -15,12 +15,13 @@ import BookingStatusBadge from "./BookingStatusBadge";
 import ConfirmModal from "@/components/ui/ConfirmModal";
 import { deleteBooking } from "@/lib/api-client";
 import { useToast } from "@/components/ui/ToastContainer";
+import { getDestinationImage } from "@/lib/local-images";
 
 const BookingCard = ({ booking, onCancelled }) => {
   const toast = useToast();
   const [isCancelling, setIsCancelling] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [imgError, setImgError] = useState(false);
+  const image = getDestinationImage(booking);
 
   const formattedDate = booking.departureDate
     ? new Date(booking.departureDate).toLocaleDateString("en-US", {
@@ -58,20 +59,13 @@ const BookingCard = ({ booking, onCancelled }) => {
       <div className="flex flex-col sm:flex-row">
         {/* Destination image */}
         <div className="relative w-full sm:w-44 h-44 sm:h-auto shrink-0 overflow-hidden">
-          {booking.destinationImage && !imgError ? (
-            <Image
-              src={booking.destinationImage}
-              alt={booking.destinationName}
-              fill
-              sizes="(max-width: 640px) 100vw, 176px"
-              className="object-cover group-hover:scale-105 transition-transform duration-500"
-              onError={() => setImgError(true)}
-            />
-          ) : (
-            <div className="w-full h-full bg-linear-to-br from-secondary to-primary flex items-center justify-center">
-              <MapPin className="w-8 h-8 text-accent/60" />
-            </div>
-          )}
+          <Image
+            src={image}
+            alt={booking.destinationName}
+            fill
+            sizes="(max-width: 640px) 100vw, 176px"
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
+          />
           {/* Gradient overlay on mobile */}
           <div className="absolute inset-0 bg-linear-to-t from-primary/60 to-transparent sm:hidden" />
         </div>

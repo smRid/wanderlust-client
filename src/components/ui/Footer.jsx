@@ -10,6 +10,7 @@ import {
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import NewsletterForm from "./footer/NewsletterForm";
+import { localImages } from "@/lib/local-images";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -93,7 +94,7 @@ const Footer = async () => {
             <Link href="/" className="inline-flex items-center gap-2 group">
               <div className="relative w-10 h-10">
                 <Image
-                  src="/assets/logo.png"
+                  src={localImages.logo}
                   alt="Wanderlast"
                   fill
                   sizes="40px"

@@ -1,8 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Star, Clock, TrendingUp, ArrowRight } from "lucide-react";
+import { getDestinationImage } from "@/lib/local-images";
 
 const DestinationCard = ({ destination }) => {
+  const image = getDestinationImage(destination);
+
   return (
     <Link
       href={`/destinations/${destination._id}`}
@@ -11,7 +14,7 @@ const DestinationCard = ({ destination }) => {
       {/* Image Container */}
       <div className="relative aspect-4/5 overflow-hidden">
         <Image
-          src={destination.imageUrl}
+          src={image}
           alt={`${destination.destinationName}, ${destination.country}`}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"

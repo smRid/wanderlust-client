@@ -12,7 +12,7 @@ const NotFoundState = () => {
           Destination <span className="text-accent">Not Found</span>
         </h1>
         <p className="text-text-muted font-body mb-8">
-          The destination you're looking for doesn't exist or may have been
+          The destination you&apos;re looking for doesn&apos;t exist or may have been
           removed.
         </p>
         <Link

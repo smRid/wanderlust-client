@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { localImages } from "@/lib/local-images";
 import {
   Search,
   MapPin,
@@ -15,7 +16,7 @@ const Hero = () => {
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src="/assets/hero-banner.png"
+          src={localImages.heroBanner}
           alt="Adventure traveler overlooking scenic mountains and ocean"
           fill
           priority

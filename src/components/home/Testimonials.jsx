@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { localImages } from "@/lib/local-images";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -13,7 +14,7 @@ const TESTIMONIALS = [
       "Wanderlast completely changed how I travel. Every detail was taken care of — from the moment I booked to the second I landed back home. I've never felt so stress-free on a trip.",
     name: "Sarah Mitchell",
     role: "Solo Traveler · Visited Bali & Japan",
-    image: "/assets/person1.png",
+    image: localImages.person1,
     rating: 5,
     highlight: "stress-free",
   },
@@ -23,7 +24,7 @@ const TESTIMONIALS = [
       "I was skeptical at first, but the curated destinations are genuinely world-class. Our family trip to Switzerland was flawless. The kids are already asking when we're going again.",
     name: "James Okafor",
     role: "Family Traveler · Visited Switzerland",
-    image: "/assets/person2.png",
+    image: localImages.person2,
     rating: 5,
     highlight: "world-class",
   },

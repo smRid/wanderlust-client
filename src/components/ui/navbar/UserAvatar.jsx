@@ -1,10 +1,7 @@
-"use client";
-
-import { useState } from "react";
 import Image from "next/image";
+import { getProfileImage } from "@/lib/local-images";
 
 const UserAvatar = ({ user, size = "md" }) => {
-  const [imgError, setImgError] = useState(false);
   const sizeClass = size === "sm" ? "w-8 h-8 text-xs" : "w-9 h-9 text-sm";
 
   const initials = user?.name
@@ -16,18 +13,17 @@ const UserAvatar = ({ user, size = "md" }) => {
         .toUpperCase()
     : "?";
 
-  if (user?.image && !imgError) {
+  if (user) {
     return (
       <div
         className={`${sizeClass} relative rounded-full overflow-hidden shrink-0 ring-2 ring-accent/30`}
       >
         <Image
-          src={user.image}
+          src={getProfileImage(user)}
           alt={user.name ?? "User"}
           fill
           sizes="40px"
           className="object-cover"
-          onError={() => setImgError(true)}
         />
       </div>
     );

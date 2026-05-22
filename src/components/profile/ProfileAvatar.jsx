@@ -5,11 +5,10 @@ import Image from "next/image";
 import { Camera, Loader2 } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { useToast } from "@/components/ui/ToastContainer";
+import { getProfileImage } from "@/lib/local-images";
 
 const ProfileAvatar = ({ user }) => {
-  const [imgError, setImgError] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
-  const [previewUrl, setPreviewUrl] = useState(null);
   const fileInputRef = useRef(null);
   const toast = useToast();
 
@@ -61,13 +60,6 @@ const ProfileAvatar = ({ user }) => {
     setIsUploading(true);
 
     try {
-      // Create preview
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewUrl(reader.result);
-      };
-      reader.readAsDataURL(file);
-
       // Upload to ImgBB
       const imageUrl = await uploadToImgBB(file);
 
@@ -85,7 +77,6 @@ const ProfileAvatar = ({ user }) => {
     } catch (error) {
       console.error("Error uploading image:", error);
       toast.error(error.message || "Failed to update profile photo");
-      setPreviewUrl(null);
     } finally {
       setIsUploading(false);
     }
@@ -97,24 +88,19 @@ const ProfileAvatar = ({ user }) => {
     }
   };
 
-  const displayImage = previewUrl || user?.image;
+  const displayImage = getProfileImage(user);
 
   return (
     <div className="relative w-24 h-24 sm:w-28 sm:h-28 shrink-0 group">
       <div className="relative w-full h-full rounded-2xl ring-4 ring-surface overflow-hidden shadow-xl">
-        {displayImage && !imgError ? (
+        {displayImage ? (
           <Image
-            src={
-              previewUrl
-                ? displayImage
-                : displayImage.replace(/=s\d+-c$/, "=s400-c")
-            }
+            src={displayImage}
             alt={user?.name ?? "Profile"}
             fill
             sizes="(max-width: 640px) 96px, 112px"
             quality={100}
             className="object-cover"
-            onError={() => setImgError(true)}
           />
         ) : (
           <div className="w-full h-full bg-linear-to-br from-accent to-secondary flex items-center justify-center">

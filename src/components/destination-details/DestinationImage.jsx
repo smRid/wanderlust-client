@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Heart, Share2, Sparkles, TrendingUp } from "lucide-react";
+import { getDestinationImage } from "@/lib/local-images";
 
 const DestinationImage = ({
   imageUrl,
@@ -11,12 +12,14 @@ const DestinationImage = ({
   hasDiscount,
   discountPercent,
 }) => {
+  const image = getDestinationImage({ destinationName, imageUrl });
+
   return (
     <div className="relative">
       <div className="sticky top-24">
         <div className="relative aspect-4/5 rounded-3xl overflow-hidden shadow-2xl">
           <Image
-            src={imageUrl}
+            src={image}
             alt={destinationName}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
