@@ -1,6 +1,6 @@
 <div align="center">
 
-# ✨ WanderLast
+# WanderLast
 
 ### Curated Travel Experiences for Modern Explorers
 
@@ -168,24 +168,6 @@ MONGODB_URI=your_mongodb_connection_string
 MONGODB_DB=wanderlast
 ```
 
-For production, set:
-
-```env
-BETTER_AUTH_URL=https://wanderlustweb.vercel.app
-NEXT_PUBLIC_APP_URL=https://wanderlustweb.vercel.app
-NEXT_PUBLIC_BETTER_AUTH_URL=https://wanderlustweb.vercel.app
-NEXT_PUBLIC_API_BASE_URL=https://wanderlustwebserver.vercel.app
-CLIENT_URL=https://wanderlustweb.vercel.app
-```
-
-Google OAuth redirect URI:
-
-```text
-https://wanderlustweb.vercel.app/api/auth/callback/google
-```
-
----
-
 ## 🚀 Getting Started
 
 Clone the repository:
@@ -239,26 +221,6 @@ cd ../server
 npm run build
 ```
 
----
-
-## 🌱 Database Seeding
-
-A reusable seed script is included to populate the `destinations` collection with 30 famous city travel packages.
-
-```bash
-cd server
-node scripts/seed-best-cities.js
-```
-
-The script upserts records into:
-
-```text
-wanderlast.destinations
-```
-
-It includes destination names, countries, cities, continents, categories, pricing, ratings, travel duration, highlights, included services, and booking metadata.
-
----
 
 ## 📡 API Endpoints
 
