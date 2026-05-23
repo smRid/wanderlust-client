@@ -9,7 +9,6 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@better-auth/infra": "^0.2.8",
     "@heroui/react": "^3.0.4",
     "@heroui/styles": "^3.0.4",
     "better-auth": "^1.6.11",

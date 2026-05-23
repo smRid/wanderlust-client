@@ -1,5 +1,4 @@
 import { betterAuth } from "better-auth";
-import { dash } from "@better-auth/infra";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { nextCookies } from "better-auth/next-js";
 import { MongoClient } from "mongodb";
@@ -63,11 +62,5 @@ export const auth = betterAuth({
       overrideUserInfoOnSignIn: true,
     },
   },
-  plugins: [
-    dash({
-      apiKey: process.env.BETTER_AUTH_API_KEY,
-    }),
-    jwt(),
-    nextCookies(),
-  ],
+  plugins: [jwt(), nextCookies()],
 });
