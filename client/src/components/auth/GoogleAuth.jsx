@@ -22,6 +22,7 @@ const GoogleAuth = ({ label = "Sign up with Google" }) => {
     const { data, error } = await authClient.signIn.social({
       provider: "google",
       callbackURL: redirectTo,
+      errorCallbackURL: "/signin",
     });
 
     if (error) {
