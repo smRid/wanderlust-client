@@ -10,11 +10,13 @@ import { ToastProvider } from "@/components/ui/ToastContainer";
 const sora = Sora({
   variable: "--font-sora",
   subsets: ["latin"],
+  preload: false,
 });
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  preload: false,
 });
 
 export const metadata = {
