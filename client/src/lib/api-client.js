@@ -5,7 +5,11 @@
 
 import { authClient } from "./auth-client";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "");
+
+if (!API_BASE_URL) {
+  throw new Error("NEXT_PUBLIC_API_BASE_URL is required.");
+}
 
 /**
  * Helper to get auth token from client-side session
