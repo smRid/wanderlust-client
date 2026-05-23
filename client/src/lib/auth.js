@@ -6,10 +6,10 @@ import { MongoClient } from "mongodb";
 import { jwt } from "better-auth/plugins";
 
 const globalForMongo = globalThis;
-const mongoUri = process.env.MONGODB_URI || process.env.MONGO_DB_URI;
+const mongoUri = process.env.MONGODB_URI;
 
 if (!mongoUri) {
-  throw new Error("MONGODB_URI or MONGO_DB_URI is required for Better Auth.");
+  throw new Error("MONGODB_URI is required for Better Auth.");
 }
 
 const mongoClient =
